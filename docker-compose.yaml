@@ -1,0 +1,42 @@
+version: "3.8"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: bash -c "alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload"
+    env_file:
+      - .env
+    depends_on:
+      - database
+      - redis
+    ports:
+      - "8000:8000"
+
+  redis:
+    image: redis:alpine
+    restart: unless-stopped
+
+  celery:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    entrypoint: celery -A app.core.celery_app worker -l info
+    depends_on:
+      - redis
+    env_file:
+      - .env
+    restart: unless-stopped
+
+  database:
+    image: postgres:14-alpine
+    volumes:
+      - dfb_data:/var/lib/postgresql/data/
+    env_file:
+      - .env
+    restart: unless-stopped
+
+
+volumes:
+  dfb_data:

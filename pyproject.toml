@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "webtronics"
+version = "0.1.0"
+description = ""
+authors = ["Ivan Patin <payk1230@bk.ru>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+fastapi = "^0.93.0"
+alembic = "^1.10.1"
+uvicorn = "^0.20.0"
+celery = "^5.2.7"
+python-dotenv = "^1.0.0"
+psycopg2 = "^2.9.5"
+pydantic = {extras = ["email"], version = "^1.10.5"}
+passlib = "^1.7.4"
+python-jose = "^3.3.0"
+cffi = "^1.15.1"
+tenacity = "^8.2.2"
+python-multipart = "^0.0.6"
+redis = "^4.5.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
